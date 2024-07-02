@@ -31,12 +31,14 @@ int main(int argc, char *argv[])
 
     int *set_sort = malloc(sizeof(int));
     *set_sort = atoi(argv[1]);
-    if (*set_sort == 2) {
+    if (*set_sort == 4) {
+        printf("sort by qsort\n");
+    }else if (*set_sort == 3) {
         printf("sort by pdqsort\n");
-    } else if (*set_sort == 3) {
+    } else if (*set_sort == 2) {
         printf("sort by linux lib sort\n");
     } else {
-        printf("sort by qsort\n");
+        printf("sort by timsort\n");
     }
     ssize_t set_res = write(fd, set_sort, sizeof(int));
     if (set_res > 0) {

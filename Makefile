@@ -2,7 +2,8 @@ obj-m += sort.o
 sort-objs := \
     sort_mod.o \
     sort_impl.o \
-    pdqsort.o
+    pdqsort.o \
+    timsort.o 
 
 obj-m += xoro.o
 xoro-objs := \

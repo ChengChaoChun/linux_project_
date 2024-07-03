@@ -36,6 +36,7 @@ struct timsort_struct {
     void *priv;
     struct list_head *h;
     list_cmp_func_t cmp;
+    pid_t p;    
 };
 
 void timsort(struct work_struct *w);

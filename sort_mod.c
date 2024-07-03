@@ -67,6 +67,7 @@ void timsort_init(struct timsort_struct *t,
     t->priv = priv_;
     t->h = h_;
     t->cmp = cmp_;
+    t->p = current->pid;
 }
 
 
@@ -75,6 +76,10 @@ static ssize_t sort_read(struct file *file,
                          size_t size,
                          loff_t *offset)
 {
+    char _comm[TASK_COMM_LEN];
+    get_task_comm(_comm, current);
+    printk("%s (pid=%d, comm=%s, state=%d)\n", __func__, current->pid, _comm, current->__state);
+
     unsigned long len;
     size_t es;
 

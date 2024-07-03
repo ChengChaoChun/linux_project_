@@ -1,5 +1,6 @@
 //#include <stdint.h>
 //#include <stdlib.h>
+#include <linux/sched.h>
 
 //#include "list.h"
 #include "sort.h"
@@ -198,6 +199,20 @@ void timsort(struct work_struct *w)
     struct timsort_struct *t = container_of(w, struct timsort_struct, w);    
     struct list_head *head = t->h;
     list_cmp_func_t cmp = t->cmp;
+
+    //Verify concurrent execution
+    struct pid * pid_;
+    struct task_struct *task;
+    char task_name[TASK_COMM_LEN] = {0};
+
+    pid_ = find_get_pid(t->p);
+    task = get_pid_task(pid_, PIDTYPE_PID);
+
+    char _comm[TASK_COMM_LEN];
+    get_task_comm(_comm, current);
+    printk("%s (pid=%d, comm=%s, state=%d)\n", __func__, current->pid, _comm, current->__state);
+
+    printk("comm = %s , task pid = %d, task state = %d\n", get_task_comm(task_name, task), task->pid, task->__state);
 
 
     struct list_head *list = head->next, *tp = NULL;
